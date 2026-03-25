@@ -1,6 +1,13 @@
+import { FC } from 'react';
+import { GithubIssue } from '../interfaces';
 import { IssueItem } from './IssueItem';
 
-export const IssueList = () => {
+interface Props{
+  issues:GithubIssue[];
+}
+
+//recibimos las props de los issues para mostrarlos
+export const IssueList:FC<Props> = ({issues}) => {
   return (
     <>
       {/* Botones de All, Open, Closed */}
@@ -12,8 +19,9 @@ export const IssueList = () => {
 
       {/* Lista de issues */}
       <div className="mt-4">
-        {[1, 2, 3].map((issue) => (
-          <IssueItem key={issue} />
+        {issues.map((issue) => (
+          // iteramos y mostramos los issues
+          <IssueItem key={issue.id} issue={issue} />
         ))}
       </div>
     </>

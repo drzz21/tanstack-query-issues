@@ -7,10 +7,8 @@ export const useIssues = () => {
 	const issuesQuery = useQuery({
 		queryKey: ['issues'],
 		queryFn: getIssues,
-		staleTime: 1000 * 60 * 60, //1 hora de stale time
+		staleTime: 1000 * 60, //1 minuto de stale time
 	});
-
-	console.log(issuesQuery.data);
 
 	return {
 		issuesQuery,
