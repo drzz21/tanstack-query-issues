@@ -19,7 +19,7 @@ export const getLabels = async (): Promise<GithubLabel[]> => {
 	// ).then((r) => r.json());
 
 	// console.log(resp);
-	console.log(data);
+	// console.log(data);
 
 	return data;
 };
