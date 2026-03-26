@@ -9,7 +9,9 @@ export const router = createBrowserRouter([
     element: <GitApp />,
     children: [
       { path: 'list', element: <ListView /> },
-      { path: 'issue/:id', element: <IssueView /> },
+      // cambiamos el nombre de nuestro query string para que sea mas
+      //descriptivo
+      { path: 'issue/:issueNumber', element: <IssueView /> },
       { path: '*', element: <Navigate to="list" /> },
     ],
   },

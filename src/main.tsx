@@ -9,7 +9,15 @@ import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const queryClient = new QueryClient();
+// con esto definimos configuracion global de nuestro tanstack query
+//ponemos los reintentos en false para que no los reintente los querys
+const queryClient = new QueryClient({
+	defaultOptions:{
+		queries:{
+			retry: false, 
+		}
+	}
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
