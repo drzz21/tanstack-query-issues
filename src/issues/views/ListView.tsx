@@ -13,17 +13,38 @@ export const ListView = () => {
 	//la funcion modificadora
 	//por defecto el primer estatus será el de all
 	const [state, setState] = useState<State>(State.All);
+	//manejamos el estado de las etiquetas seleccionadas.
+	//dentro de este componente
+	const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
 	//mandamos el atributo que esperamos recibir en nuestro hook
 	//que es el estado a consultar
 	const { issuesQuery } = useIssues({
 		state: state,
+		// mandamos los labels seleccionados al hook
+		//donde hacemos la consulta
+		selectedLabels: selectedLabels,
 	});
 
 	//creamos la variable issues que tiene la informacion de los issues,
 	// y si no hay nada le ponemos un array vacio para que no de error
 	//y siempre tener un arreglo
 	const issues = issuesQuery.data ?? [];
+
+	//cada que hagamos click sobre un label
+	//actualizaremos el listado de labels seleccionados
+	//usando esta funcion que valida si ya está
+	//para quitarlo, y sino, para agregarlo
+
+	const onLabelSelected = (labelName: string) => {
+		if (selectedLabels.includes(labelName)) {
+			setSelectedLabels(
+				selectedLabels.filter((label) => label !== labelName),
+			);
+		} else {
+			setSelectedLabels([...selectedLabels, labelName]);
+		}
+	};
 
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-3 mt-5">
@@ -44,7 +65,12 @@ export const ListView = () => {
 			</div>
 
 			<div className="col-span-1 px-2">
-				<LabelPicker />
+				<LabelPicker
+					//pasamos los labels y la funcion para modificarlos
+					//a nuestro labelpicker
+					onLabelSelected={onLabelSelected}
+					selectedLabels={selectedLabels}
+				/>
 			</div>
 		</div>
 	);

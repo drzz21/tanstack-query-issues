@@ -16,14 +16,14 @@ export const IssueItem = ({ issue }: Props) => {
 	//importamos el query client para hacer el prefetch
 	const queryClient = useQueryClient();
 
-	//creamos nuestra funcion prefetch, esta funcion sirve para 
+	//creamos nuestra funcion prefetch, esta funcion sirve para
 	//consultar la informacion antes de tiempo, para que
 	//cuando se vaya a utilizar ya la tengamos lista
 	//en este caso consultamos la informacion de los issues
 	//y los comentarios de los issues, definiendo las mismas querys
 	//que usamos donde las declaramos, y la misma funcion para consultar la
 	//informacion
-	//poonemos un stale time de un minuto para no disparar solcitudes 
+	//poonemos un stale time de un minuto para no disparar solcitudes
 	//de forma tan constante
 
 	const prefetchData = () => {
@@ -42,15 +42,15 @@ export const IssueItem = ({ issue }: Props) => {
 	//creamos una nueva funcion, en este caso usaremos la funcion presetData
 	//con ella podemos manualmente, asignar informacion a nuestra query sin hacer consulta
 	//esto lo hacemos cuando de alguna forma podemos obtener la informacion
-	//en este caso se obtiene porque la consulta para obtener el listado de issues, 
-	//nos da la informacion de todos los issues y podemos usarla para 
+	//en este caso se obtiene porque la consulta para obtener el listado de issues,
+	//nos da la informacion de todos los issues y podemos usarla para
 	//asignar la ifnormacion de cada issue de forma individual
 	//este query lo llamamos igual en el mouseEnter
 	const presetData = () => {
 		//funciona de la siguiente forma, le mandamos la query que queremos usar
 		//y la informacion que queremos que tenga, en este caso el issue que recibimos en este item
 		//con el updatedat le decimos que esta informacion se actualizó hace un minuto, esto es para que no se consulte inmediatamente
-		queryClient.setQueryData(['issue', issue.number], issue,{
+		queryClient.setQueryData(['issue', issue.number], issue, {
 			updatedAt: Date.now() + 1000 * 60,
 		});
 	};
@@ -86,6 +86,20 @@ export const IssueItem = ({ issue }: Props) => {
 					#${issue.number} opened 2 days ago by{' '}
 					<span className="font-bold">{issue.user.login}</span>
 				</span>
+
+				{/* mostramos los labels del issue renderizado */}
+
+				<div className="flex flex-wrap">
+					{issue.labels.map((label) => (
+						<span
+							key={label.id}
+							className="px-2 py-1 rounded-full text-xs font-semibold"
+							style={{ border: `2px solid #${label.color}` }}
+						>
+							{label.name}
+						</span>
+					))}
+				</div>
 			</div>
 			<img
 				src={issue.user.avatar_url}
