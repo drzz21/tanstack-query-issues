@@ -80,7 +80,9 @@ export interface Reactions {
     eyes:        number;
 }
 
+//agregamos el estatus all
 export enum State {
+    All= "all",
     Open = "open",
     Close= "close",
 }
