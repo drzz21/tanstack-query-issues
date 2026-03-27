@@ -39,6 +39,22 @@ export const IssueItem = ({ issue }: Props) => {
 		});
 	};
 
+	//creamos una nueva funcion, en este caso usaremos la funcion presetData
+	//con ella podemos manualmente, asignar informacion a nuestra query sin hacer consulta
+	//esto lo hacemos cuando de alguna forma podemos obtener la informacion
+	//en este caso se obtiene porque la consulta para obtener el listado de issues, 
+	//nos da la informacion de todos los issues y podemos usarla para 
+	//asignar la ifnormacion de cada issue de forma individual
+	//este query lo llamamos igual en el mouseEnter
+	const presetData = () => {
+		//funciona de la siguiente forma, le mandamos la query que queremos usar
+		//y la informacion que queremos que tenga, en este caso el issue que recibimos en este item
+		//con el updatedat le decimos que esta informacion se actualizó hace un minuto, esto es para que no se consulte inmediatamente
+		queryClient.setQueryData(['issue', issue.number], issue,{
+			updatedAt: Date.now() + 1000 * 60,
+		});
+	};
+
 	return (
 		// agregamos la clase que creamos
 		//ponemos el llamado al prefetch cada que el mouse
@@ -46,7 +62,8 @@ export const IssueItem = ({ issue }: Props) => {
 		//se consultará la informacion y se guardará en caché sin
 		//necesidad de que el usuario entre a la pagina
 		<div
-			onMouseEnter={prefetchData}
+			// onMouseEnter={prefetchData}
+			onMouseEnter={presetData}
 			className="animate-fade-in flex items-center px-2 py-3 mb-5 border rounded-md bg-slate-900 hover:bg-slate-800"
 		>
 			{/* si está cerrado ponemos un icono, sino el otro */}
