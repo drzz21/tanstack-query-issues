@@ -14,7 +14,11 @@ export const ListView = () => {
 	//por defecto el primer estatus será el de all
 	const [state, setState] = useState<State>(State.All);
 
-	const { issuesQuery } = useIssues();
+	//mandamos el atributo que esperamos recibir en nuestro hook
+	//que es el estado a consultar
+	const { issuesQuery } = useIssues({
+		state: state,
+	});
 
 	//creamos la variable issues que tiene la informacion de los issues,
 	// y si no hay nada le ponemos un array vacio para que no de error
