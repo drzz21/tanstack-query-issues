@@ -25,6 +25,10 @@ export const getIssues = async (state:State,selectedLabels: string[]):Promise<Gi
 		params.append('labels', selectedLabels.join(','));
 	}
 
+	//parametro para agregar paginacion de acuerdo a la documentacion
+	//de github, filtrando el numero de elementos por pagina
+	params.append('per_page', '5'); //limitar a 5 issues por pagina
+
 	const { data } = await githubApi.get<GithubIssue[]>('/issues',{
 		//mandamos el param
 		params

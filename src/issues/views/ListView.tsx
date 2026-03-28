@@ -56,11 +56,25 @@ export const ListView = () => {
 					// setState es equivalente a setState(state)
 					//le pasamos la funcion para modificar el estado
 					//y el estado como tal para que sepa cual está seleccionado
-					<IssueList
-						issues={issues}
-						onStateChange={setState}
-						state={state}
-					/>
+					<>
+						<IssueList
+							issues={issues}
+							onStateChange={setState}
+							state={state}
+						/>
+						{/* diseño basico de menu de paginacion  */}
+						<div className="flex justify-between items-center">
+							<button className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
+								Anteriores
+							</button>
+							<span>
+								{1}
+							</span>
+							<button className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
+								Siguientes
+							</button>
+						</div>
+					</>
 				)}
 			</div>
 
