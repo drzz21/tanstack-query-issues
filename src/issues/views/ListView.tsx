@@ -19,7 +19,10 @@ export const ListView = () => {
 
 	//mandamos el atributo que esperamos recibir en nuestro hook
 	//que es el estado a consultar
-	const { issuesQuery } = useIssues({
+	//importamos las funciones para la paginacion, que son
+	//las funciones de  pagina siguiente, la pagina anterior, 
+	// y el valor de la pagina actual
+	const { issuesQuery, page, nextPage, prevPage } = useIssues({
 		state: state,
 		// mandamos los labels seleccionados al hook
 		//donde hacemos la consulta
@@ -64,13 +67,13 @@ export const ListView = () => {
 						/>
 						{/* diseño basico de menu de paginacion  */}
 						<div className="flex justify-between items-center">
-							<button className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
+							{/* agregamos los llamados a las funciones
+							y a mostrar el valor de la pagna actual */}
+							<button onClick={prevPage} className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
 								Anteriores
 							</button>
-							<span>
-								{1}
-							</span>
-							<button className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
+							<span>{page}</span>
+							<button onClick={nextPage} className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all">
 								Siguientes
 							</button>
 						</div>
